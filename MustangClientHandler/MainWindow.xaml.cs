@@ -94,27 +94,16 @@ namespace MustangClientHandler
             _context.SaveChanges();
             UpdateActions.textChanged(this);
         }
-        private async void ClientReport_Click(object sender, EventArgs e)
+        private void ClientReport_Click(object sender, EventArgs e) => ReportClick("Generating Client Report...", Enums.ReportType.ClientReport);
+        private  void PaymentReport_Click(object sender, EventArgs e) => ReportClick("Generating Payment Report...", Enums.ReportType.PaymentReport);
+        private void UserReport_Click(object sender, EventArgs e)=> ReportClick("Generating User Report...", Enums.ReportType.UserReport);
+        public async void ReportClick(string title, Enums.ReportType reportType)
         {
-            UpdateActions.disable(this, "Generating Client Report...");
-            await ReportManager.GenerateAsync(Enums.ReportType.ClientReport);
+            UpdateActions.disable(this, title);
+            await ReportManager.GenerateAsync(reportType);
             UpdateActions.enable(this, _defWindowTitle);
+            MessageBox.Show(this, "Done please check documents","Done", MessageBoxButton.OK);
         }
-        private void PaymentReport_Click(object sender, EventArgs e)
-        {
-            UpdateActions.disable(this, "Generating Payment Report...");
-            Thread.Sleep(3000);
-            //export to exel; 
-            UpdateActions.enable(this, _defWindowTitle);
-        }
-        private void UserReport_Click(object sender, EventArgs e)
-        {
-            UpdateActions.disable(this, "Generating User Report...");
-            Thread.Sleep(3000);
-            //export to exel; 
-            UpdateActions.enable(this, _defWindowTitle);
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             msContext _context = new msContext();
