@@ -19,6 +19,7 @@ namespace MustangClientHandler.EF
         public string UserLastVisitEnd { get; set; }
         public string UserLogin { get; set; }
         public string UserPassword { get; set; }
+        public double TotalHours { get; set; }
         public override string ToString() => $"name : {this.UserName}, login : {this.UserLogin}, role : {this.UserRole}";
         public static msUser CurrentUser { get; set; }
     }

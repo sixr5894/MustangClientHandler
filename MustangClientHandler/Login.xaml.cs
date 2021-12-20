@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,11 +27,13 @@ namespace MustangClientHandler
         }
         private async void button1_Click(object sender, RoutedEventArgs e)
         {
+            this.button1.IsEnabled = false;
             bool legal = await LoginAsync(this.textBoxLogin.Text, PrepatePassword(this.passwordBox.Password));
             if (!legal)
             {
                 this.textBlockHeading.Text = "Wrong login or password";
                 this.textBlockHeading.Foreground = new SolidColorBrush(Colors.Red);
+                this.button1.IsEnabled = true;
                 return;
             }
             MainWindow main = new MainWindow(true);
@@ -50,6 +53,9 @@ namespace MustangClientHandler
             if (_user == null)
                 return false;
             msUser.CurrentUser = _user;
+            _user.UserLastVisitStart = DateTime.Now.ToString();
+            _context.SaveChanges();
+
             return true;
         }
         private string PrepatePassword(string arg)

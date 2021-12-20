@@ -46,5 +46,15 @@ namespace MustangClientHandler
             win.DeleteClient.IsEnabled = win.UserInAdminRole ? arg : false;
             win.GetPayment.IsEnabled = arg;
         };
+        public static Action<MainWindow, string> disable = (win, arg) =>
+        {
+            win.Title = arg;
+            win.IsEnabled = false;
+        };
+        public static Action<MainWindow, string> enable = (win, arg) =>
+        {
+            win.Title = arg;
+            win.IsEnabled = true;
+        };
     }
 }

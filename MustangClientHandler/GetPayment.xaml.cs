@@ -40,7 +40,7 @@ namespace MustangClientHandler
         {
             int sum = int.Parse(this.SumText.Text);
             msContext _context = new msContext();
-            _context.msPayments.Add(new msPayment {PaymentId = Guid.NewGuid().ToString(), ClientId  = this.ClientID, UserId = msUser.CurrentUser.UserId, PaymentDate = DateTime.Now.ToString(), PaymentType = 0});
+            _context.msPayments.Add(new msPayment {PaymentId = Guid.NewGuid().ToString(), ClientId  = this.ClientID, UserId = msUser.CurrentUser.UserId, PaymentDate = DateTime.Now.ToString(), PaymentType = 0, PaymentSum = sum});
             _context.SaveChanges();
             this.Close();
         }
