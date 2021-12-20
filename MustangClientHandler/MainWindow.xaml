@@ -1,0 +1,28 @@
+﻿<Window x:Class="MustangClientHandler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MustangClientHandler"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition Width="227*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="ListBox" Height="191" Margin="57,59,145,0" VerticalAlignment="Top" Grid.ColumnSpan="2" GotMouseCapture="ListBox_GotMouseCapture" LostFocus="ListBox_LostFocus" LostKeyboardFocus="ListBox_LostKeyboardFocus"/>
+        <Button Name="GetPayment" Content="Get Payment" Margin="561.455,59,45,0" VerticalAlignment="Top" Grid.Column="1" Click="GetPayment_Click"/>
+        <TextBox Name="SearchText" HorizontalAlignment="Left" Height="28" Margin="57,26,0,0" TextWrapping="Wrap" Text="Enter client name" Foreground="LightGray"  VerticalAlignment="Top" Width="285" IsKeyboardFocusedChanged="SearchText_IsKeyboardFocusedChanged" LostKeyboardFocus="SearchText_LostKeyboardFocus" TextChanged="SearchText_TextChanged" Grid.ColumnSpan="2"/>
+        <Button Name="AddClient" Content="Add Client" Margin="561.455,104,45,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,1.155" Grid.Column="1" Click="AddClient_Click"/>
+        <Button Name ="DeleteClient" Content="Delete" Margin="561.455,142,45,0" VerticalAlignment="Top" RenderTransformOrigin="0.587,3.668" Grid.Column="1" Click="DeleteClient_Click"/>
+        <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="792" Grid.ColumnSpan="2">
+            <MenuItem Name="Reports" Header="Reports" >
+                <MenuItem Name="ClientReport" Header="Client Report" Click="ClientReport_Click"/>
+                <MenuItem Name ="PaymentReport" Header="Payment Report" Click="PaymentReport_Click"/>
+                <MenuItem Name="UserReport" Header="User Report" Click="UserReport_Click"/>
+            </MenuItem>
+        </Menu>
+
+    </Grid>
+</Window>
