@@ -40,6 +40,7 @@ namespace TestingMustangHandler
                 if (textBlockHeading.Text != "Wrong login or password" & i > 0)
                     Assert.Fail();
             }
+            app.Kill();
         }
         void ParticularInitialization()
         {
@@ -52,7 +53,7 @@ namespace TestingMustangHandler
 
         private static Random random = new Random();
 
-        public static string RandomString(int length)
+        private static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             return new string(Enumerable.Repeat(chars, length)
