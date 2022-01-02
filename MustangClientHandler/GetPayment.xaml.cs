@@ -31,7 +31,7 @@ namespace MustangClientHandler
             this.ConfirmButton.IsEnabled = false;
             this.Topmost = true;
         }
-        public GetPayment(int arg):this()
+        public GetPayment(int arg) : this()
         {
             this.ClientID = arg;
         }

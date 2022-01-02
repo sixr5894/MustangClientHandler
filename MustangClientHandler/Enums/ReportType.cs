@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MustangClientHandler.Enums
 {
-    public enum ReportType: int
+    public enum ReportType : int
     {
         ClientReport,
         UserReport,

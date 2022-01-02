@@ -24,6 +24,7 @@ namespace MustangClientHandler
         public Login()
         {
             InitializeComponent();
+            Task.Run(() => { var temp = new msContext().msUsers.ToList(); });
         }
         private async void button1_Click(object sender, RoutedEventArgs e)
         {
@@ -46,7 +47,7 @@ namespace MustangClientHandler
             var temp = await Task.Run(() => LoginSync(login, pass));
             return temp;
         }
-        private bool LoginSync(string login, string pass)
+        public bool LoginSync(string login, string pass)
         {
             msContext _context = new msContext();
             msUser _user = _context.msUsers.FirstOrDefault(user => user.UserLogin == login && user.UserPassword == pass);
