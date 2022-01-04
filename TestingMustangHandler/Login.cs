@@ -17,6 +17,7 @@ namespace TestingMustangHandler
     [TestClass]
     public class Login
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static Button loginButton;
         public static Window window;
         public static Application app;
@@ -28,18 +29,35 @@ namespace TestingMustangHandler
         {
             app = Application.Launch("MustangClientHandler.exe");
             ParticularInitialization();
+            log.Info("Login test method initialized");
         }
         [TestMethod]
         public void TestLogin()
         {
             for(int i = 0; i < 50; i++)
             {
+                string pass = RandomString(i + 1);
                 textBoxLogin.Text = RandomString(i + 1);
-                passwordBox.Text = RandomString(i + 1);
+                passwordBox.Text = pass;
                 loginButton.Click();
                 if (textBlockHeading.Text != "Wrong login or password" & i > 0)
+                {
                     Assert.Fail();
+                    log.Info($"Fail --- login = {textBoxLogin.Text} , password = {pass}");
+                }
+                else
+                    log.Info($"Success --- login = {textBoxLogin.Text} , password = {pass}");
+
             }
+            textBoxLogin.Text = "admin";
+            passwordBox.Text = "test";
+            loginButton.Click();
+            app.WaitWhileBusy();
+        }
+        [TestCleanup]
+        public void Complete()
+        {
+            Thread.Sleep(500);
             app.Kill();
         }
         void ParticularInitialization()
