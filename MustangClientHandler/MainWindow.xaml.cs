@@ -23,6 +23,14 @@ namespace MustangClientHandler
     /// </summary>
     public partial class MainWindow : Window
     {
+        public TextBox SearchModule => this.SearchText;
+        public List<string> GetListBoxContent()
+        {
+            List<string> temp = new List<string>();
+            foreach (var cc in this.ListBox.Items)
+                temp.Add(cc.ToString());
+            return temp;
+        }
         public bool UserInAdminRole { get; }
         public const string _defaultSearchText = "Enter client name";
         public const string _defWindowTitle = "Main Window";
@@ -90,7 +98,7 @@ namespace MustangClientHandler
         {
             UpdateActions.disableWindow(this, title);
             await ReportManager.GenerateAsync(reportType);
-            UpdateActions.enableWindow(this, _defWindowTitle);
+            UpdateActions.enableWindow(this);
             MessageBox.Show(this, "Done please check documents", "Done", MessageBoxButton.OK);
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

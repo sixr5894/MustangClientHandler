@@ -53,7 +53,6 @@ namespace TestingMustangHandler
         [TestCleanup]
         public void Complete()
         {
-            Thread.Sleep(500);
             app.Kill();
         }
         public void LogIn()

@@ -47,9 +47,9 @@ namespace MustangClientHandler
             window.DeleteClient.IsEnabled = window.UserInAdminRole ? arg : false;
             window.GetPayment.IsEnabled = arg;
         };
-        public static Action<MainWindow, string> disableWindow = (win, title) => setWindow(win, title, true);
+        public static Action<MainWindow, string> disableWindow = (win, title) => setWindow(win, title, false);
 
-        public static Action<MainWindow, string> enableWindow = (win, title) => setWindow(win, title, false);
+        public static Action<MainWindow> enableWindow = (win) => setWindow(win, MainWindow._defWindowTitle, true);
 
         private static Action<MainWindow, string, bool> setWindow = (win, title, enable) =>
         {
