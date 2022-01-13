@@ -26,38 +26,27 @@ namespace MustangClientHandler
         public bool UserInAdminRole { get; }
         public const string _defaultSearchText = "Enter client name";
         public const string _defWindowTitle = "Main Window";
-        public MainWindow()
-        {
-            InitializeComponent();
-
-        }
-        public MainWindow(bool userInAdminRole):this()
-        {
-            this.UserInAdminRole = userInAdminRole;
-        }
-
+        public MainWindow() => InitializeComponent();
+        public MainWindow(bool userInAdminRole) : this() => this.UserInAdminRole = userInAdminRole;
         private void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
         }
-        private void SearchText_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)=> UpdateActions.onFocus(this);
+        private void SearchText_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e) => UpdateActions.onFocus(this);
 
-        private void SearchText_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)=> UpdateActions.focusLost(this);
+        private void SearchText_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => UpdateActions.focusLost(this);
 
-        private void SearchText_TextChanged(object sender, TextChangedEventArgs e)=> UpdateActions.textChanged(this);
+        private void SearchText_TextChanged(object sender, TextChangedEventArgs e) => UpdateActions.textChanged(this);
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)=> UpdateActions.setButtons(this, false);
+        private void Window_Loaded(object sender, RoutedEventArgs e) => UpdateActions.setButtons(this, false);
 
-        private void ListBox_GotMouseCapture(object sender, MouseEventArgs e)=> UpdateActions.setButtons(this, true);
+        private void ListBox_GotMouseCapture(object sender, MouseEventArgs e) => UpdateActions.setButtons(this, true);
 
-        private void ListBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        private void ListBox_LostFocus(object sender, RoutedEventArgs e) { }
 
         private void ListBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if(this.ListBox.SelectedItem==null)
-            UpdateActions.setButtons(this, false);
+            if (this.ListBox.SelectedItem == null)
+                UpdateActions.setButtons(this, false);
         }
 
         private void GetPayment_Click(object sender, RoutedEventArgs e)
@@ -71,7 +60,7 @@ namespace MustangClientHandler
             ChangeWindow(new GetPayment(int.Parse(num)));
         }
 
-        private void AddClient_Click(object sender, RoutedEventArgs e)=> ChangeWindow(new AddClient());
+        private void AddClient_Click(object sender, RoutedEventArgs e) => ChangeWindow(new AddClient());
         private void ChangeWindow<T>(T arg) where T : Window
         {
             arg.Show();
@@ -85,24 +74,24 @@ namespace MustangClientHandler
                 this.DeleteClient.IsEnabled = false;
                 return;
             }
-            if (MessageBox.Show("Do you want to delete this record?", "Please confirm",  MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (MessageBox.Show("Do you want to delete this record?", "Please confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 return;
             msContext _context = new msContext();
             int id = int.Parse(this.ListBox.SelectedItem.ToString().Substring(3).Split(',')[0]);
-            msClient _client = _context.msClients.First(cl => cl.ClientId ==id );
+            msClient _client = _context.msClients.First(cl => cl.ClientId == id);
             _context.Entry(_client).State = System.Data.Entity.EntityState.Deleted;
             _context.SaveChanges();
             UpdateActions.textChanged(this);
         }
         private void ClientReport_Click(object sender, EventArgs e) => ReportClick("Generating Client Report...", Enums.ReportType.ClientReport);
-        private  void PaymentReport_Click(object sender, EventArgs e) => ReportClick("Generating Payment Report...", Enums.ReportType.PaymentReport);
-        private void UserReport_Click(object sender, EventArgs e)=> ReportClick("Generating User Report...", Enums.ReportType.UserReport);
+        private void PaymentReport_Click(object sender, EventArgs e) => ReportClick("Generating Payment Report...", Enums.ReportType.PaymentReport);
+        private void UserReport_Click(object sender, EventArgs e) => ReportClick("Generating User Report...", Enums.ReportType.UserReport);
         public async void ReportClick(string title, Enums.ReportType reportType)
         {
-            UpdateActions.disable(this, title);
+            UpdateActions.disableWindow(this, title);
             await ReportManager.GenerateAsync(reportType);
-            UpdateActions.enable(this, _defWindowTitle);
-            MessageBox.Show(this, "Done please check documents","Done", MessageBoxButton.OK);
+            UpdateActions.enableWindow(this, _defWindowTitle);
+            MessageBox.Show(this, "Done please check documents", "Done", MessageBoxButton.OK);
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

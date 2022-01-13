@@ -15,7 +15,7 @@ using TestStack.White.WindowsAPI;
 namespace TestingMustangHandler
 {
     [TestClass]
-    public class Login
+    public class UILoginTest 
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static Button loginButton;
@@ -34,7 +34,7 @@ namespace TestingMustangHandler
         [TestMethod]
         public void TestLogin()
         {
-            for(int i = 0; i < 50; i++)
+            for(int i = 0; i < 20; i++)
             {
                 string pass = RandomString(i + 1);
                 textBoxLogin.Text = RandomString(i + 1);
@@ -47,18 +47,21 @@ namespace TestingMustangHandler
                 }
                 else
                     log.Info($"Success --- login = {textBoxLogin.Text} , password = {pass}");
-
             }
-            textBoxLogin.Text = "admin";
-            passwordBox.Text = "test";
-            loginButton.Click();
-            app.WaitWhileBusy();
+            LogIn();
         }
         [TestCleanup]
         public void Complete()
         {
             Thread.Sleep(500);
             app.Kill();
+        }
+        public void LogIn()
+        {
+            textBoxLogin.Text = "admin";
+            passwordBox.Text = "test";
+            loginButton.Click();
+            app.WaitWhileBusy();
         }
         void ParticularInitialization()
         {
@@ -68,14 +71,11 @@ namespace TestingMustangHandler
             passwordBox = window.Get<TextBox>("passwordBox");
             textBlockHeading = window.Get<Label>("textBlockHeading");
         }
-
         private static Random random = new Random();
-
-        private static string RandomString(int length)
+        public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

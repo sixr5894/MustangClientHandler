@@ -31,9 +31,9 @@ namespace MustangClientHandler
             this.ConfirmButton.IsEnabled = false;
             this.Topmost = true;
         }
-        public GetPayment(int arg) : this()
+        public GetPayment(int Id) : this()
         {
-            this.ClientID = arg;
+            this.ClientID = Id;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -53,38 +53,34 @@ namespace MustangClientHandler
         private void SumText_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (this.SumText.Text == defText)
-            {
-                this.SumText.Text = "";
-                this.SumText.Foreground = new SolidColorBrush(Colors.Black);
-            }
+                SetTextAndColor("", Colors.Black);
         }
 
         private void SumText_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (this.SumText.Text == "")
-            {
-                this.SumText.Text = defText;
-                this.SumText.Foreground = new SolidColorBrush(Colors.LightGray);
-            }
+                SetTextAndColor(defText, Colors.LightGray);
         }
 
         private void SumText_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (onIntialize)
                 return;
-            string sumtxt = this.SumText.Text;
-            if (string.IsNullOrEmpty(sumtxt) || sumtxt == defText)
-            {
-                this.ConfirmButton.IsEnabled = false;
-                return;
-            }
+            this.ConfirmButton.IsEnabled = InputIsLegal(this.SumText.Text);
+        }
+        private void SetTextAndColor(string text, Color  color)
+        {
+            this.SumText.Text = text;
+            this.SumText.Foreground = new SolidColorBrush(color);
+        }
+        private bool InputIsLegal(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input == defText)
+                return false;
             int sum;
-            if (int.TryParse(this.SumText.Text,out sum))
-            {
-                this.ConfirmButton.IsEnabled = true;
-            }
-            else
-                this.ConfirmButton.IsEnabled = false;
+            if (int.TryParse(this.SumText.Text, out sum))
+                return true;
+            return false;
         }
     }
 }

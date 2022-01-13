@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MustangClientHandler", "MustangClientHandler\MustangClientHandler.csproj", "{2200C5F1-C699-4A18-A14A-DF98A329D7BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingMustangHandler", "TestingMustangHandler\TestingMustangHandler.csproj", "{91C740F7-A975-4B57-95C0-6A5B06DD33E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITestingMustangHandler", "TestingMustangHandler\UITestingMustangHandler.csproj", "{91C740F7-A975-4B57-95C0-6A5B06DD33E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

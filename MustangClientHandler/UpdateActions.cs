@@ -11,50 +11,50 @@ namespace MustangClientHandler
 {
     public static class UpdateActions
     {
-        public static Func<msClient, string, bool> containsPredicate = (client, arg) => client.ClientName.Contains(arg) || client.ClientId.ToString().Contains(arg);
-        public static Action<MainWindow> onFocus = (arg) =>
+        public static Func<msClient, string, bool> containsPredicate = (client, arg) => client.ClientName.ToLower().Contains(arg.ToLower()) || client.ClientId.ToString().Contains(arg);
+        public static Action<MainWindow> onFocus = (window) =>
         {
-            if (arg.SearchText.Text == MainWindow._defaultSearchText)
+            if (window.SearchText.Text == MainWindow._defaultSearchText)
             {
-                arg.SearchText.Text = "";
-                arg.SearchText.Foreground = new SolidColorBrush(Colors.Black);
+                window.SearchText.Text = "";
+                window.SearchText.Foreground = new SolidColorBrush(Colors.Black);
             }
         };
-        public static Action<MainWindow> focusLost = (arg) =>
+        public static Action<MainWindow> focusLost = (window) =>
         {
-            if (arg.SearchText.Text == "")
+            if (window.SearchText.Text == "")
             {
-                arg.SearchText.Text = MainWindow._defaultSearchText;
-                arg.SearchText.Foreground = new SolidColorBrush(Colors.LightGray);
+                window.SearchText.Text = MainWindow._defaultSearchText;
+                window.SearchText.Foreground = new SolidColorBrush(Colors.LightGray);
             }
         };
-        public static Action<MainWindow> textChanged = (arg) =>
+        public static Action<MainWindow> textChanged = (window) =>
         {
-            string SrText = arg.SearchText.Text;
-            arg.ListBox.Items.Clear();
+            string SrText = window.SearchText.Text;
+
+            window.ListBox.Items.Clear();
+
             var list = new msContext().msClients.ToList();
+
             if (SrText != MainWindow._defaultSearchText)
                 list = list.Where(cl => containsPredicate(cl, SrText)).ToList();
 
             foreach (var client in list)
-            {
-                arg.ListBox.Items.Add(client.ToString());
-            }
+                window.ListBox.Items.Add(client.ToString());
         };
-        public static Action<MainWindow, bool> setButtons = (win, arg) =>
+        public static Action<MainWindow, bool> setButtons = (window, arg) =>
         {
-            win.DeleteClient.IsEnabled = win.UserInAdminRole ? arg : false;
-            win.GetPayment.IsEnabled = arg;
+            window.DeleteClient.IsEnabled = window.UserInAdminRole ? arg : false;
+            window.GetPayment.IsEnabled = arg;
         };
-        public static Action<MainWindow, string> disable = (win, arg) =>
+        public static Action<MainWindow, string> disableWindow = (win, title) => setWindow(win, title, true);
+
+        public static Action<MainWindow, string> enableWindow = (win, title) => setWindow(win, title, false);
+
+        private static Action<MainWindow, string, bool> setWindow = (win, title, enable) =>
         {
-            win.Title = arg;
-            win.IsEnabled = false;
-        };
-        public static Action<MainWindow, string> enable = (win, arg) =>
-        {
-            win.Title = arg;
-            win.IsEnabled = true;
+            win.Title = title;
+            win.IsEnabled = enable;
         };
     }
 }
