@@ -38,9 +38,7 @@ namespace MustangClientHandler
 
             if (SrText != MainWindow._defaultSearchText)
                 list = list.Where(cl => containsPredicate(cl, SrText)).ToList();
-
-            foreach (var client in list)
-                window.ListBox.Items.Add(client.ToString());
+            list.ForEach(c=> window.ListBox.Items.Add(c.ToString()));
         };
         public static Action<MainWindow, bool> setButtons = (window, arg) =>
         {

@@ -69,6 +69,7 @@ namespace MustangClientHandler
         }
 
         private void AddClient_Click(object sender, RoutedEventArgs e) => ChangeWindow(new AddClient());
+
         private void ChangeWindow<T>(T arg) where T : Window
         {
             arg.Show();
@@ -92,8 +93,11 @@ namespace MustangClientHandler
             UpdateActions.textChanged(this);
         }
         private void ClientReport_Click(object sender, EventArgs e) => ReportClick("Generating Client Report...", Enums.ReportType.ClientReport);
+
         private void PaymentReport_Click(object sender, EventArgs e) => ReportClick("Generating Payment Report...", Enums.ReportType.PaymentReport);
+
         private void UserReport_Click(object sender, EventArgs e) => ReportClick("Generating User Report...", Enums.ReportType.UserReport);
+
         public async void ReportClick(string title, Enums.ReportType reportType)
         {
             UpdateActions.disableWindow(this, title);
@@ -101,6 +105,7 @@ namespace MustangClientHandler
             UpdateActions.enableWindow(this);
             MessageBox.Show(this, "Done please check documents", "Done", MessageBoxButton.OK);
         }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             msContext _context = new msContext();

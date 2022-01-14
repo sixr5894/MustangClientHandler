@@ -40,15 +40,12 @@ namespace MustangClientHandler
         {
             int sum = int.Parse(this.SumText.Text);
             msContext _context = new msContext();
-            _context.msPayments.Add(new msPayment {PaymentId = Guid.NewGuid().ToString(), ClientId  = this.ClientID, UserId = msUser.CurrentUser.UserId, PaymentDate = DateTime.Now.ToString(), PaymentType = 0, PaymentSum = sum});
+            _context.msPayments.Add(new msPayment { PaymentId = Guid.NewGuid().ToString(), ClientId = this.ClientID, UserId = msUser.CurrentUser.UserId, PaymentDate = DateTime.Now.ToString(), PaymentType = 0, PaymentSum = sum });
             _context.SaveChanges();
             this.Close();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e) => this.Close();
 
         private void SumText_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -68,7 +65,7 @@ namespace MustangClientHandler
                 return;
             this.ConfirmButton.IsEnabled = InputIsLegal(this.SumText.Text);
         }
-        private void SetTextAndColor(string text, Color  color)
+        private void SetTextAndColor(string text, Color color)
         {
             this.SumText.Text = text;
             this.SumText.Foreground = new SolidColorBrush(color);

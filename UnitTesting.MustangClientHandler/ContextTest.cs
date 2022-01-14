@@ -62,7 +62,7 @@ namespace UnitTesting.MustangClientHandler
             msClient client;
             foreach (msClient cl in clientList)
             {
-                client = context.msClients.Where(c => c.ClientName == cl.ClientName).FirstOrDefault();
+                client = context.msClients.FirstOrDefault(c => c.ClientName == cl.ClientName);
                 if (client == null)
                     Assert.Fail();
                 client.ClientName += Inventory.RandomString(5);
@@ -77,7 +77,7 @@ namespace UnitTesting.MustangClientHandler
             context = new msContext();
             foreach (msClient cl in clientList)
             {
-                client = context.msClients.Where(c => c.ClientName.Contains(cl.ClientName)).FirstOrDefault();
+                client = context.msClients.FirstOrDefault(c => c.ClientName.Contains(cl.ClientName));
                 context.Entry<msClient>(client).State = System.Data.Entity.EntityState.Deleted;
             }
             SaveChanges();
