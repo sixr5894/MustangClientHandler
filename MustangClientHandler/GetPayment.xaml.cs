@@ -20,7 +20,7 @@ namespace MustangClientHandler
     /// </summary>
     public partial class GetPayment : Window
     {
-        bool onIntialize = false;
+        bool onIntialize = false;// adding some comment
         int ClientID { get; }
         const string defText = "Enter sum";
         public GetPayment()
