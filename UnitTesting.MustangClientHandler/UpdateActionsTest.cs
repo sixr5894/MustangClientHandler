@@ -42,7 +42,7 @@ namespace UnitTesting.MustangClientHandler
             if (mainwindow.Title != "disabled")
                 Assert.Fail();
         }
-            
+
         void EnableWindow()
         {
             UpdateActions.enableWindow(mainwindow);
@@ -55,11 +55,11 @@ namespace UnitTesting.MustangClientHandler
         {
             mainwindow.SearchModule.Text = _searchText;
             UpdateActions.textChanged(mainwindow);
-            List<msClient> clientList = new msContext().msClients.ToList().Where(cl=>UpdateActions.containsPredicate(cl, _searchText)).ToList();
+            List<msClient> clientList = new msContext().msClients.ToList().Where(cl => UpdateActions.containsPredicate(cl, _searchText)).ToList();
             List<string> updatedList = mainwindow.GetListBoxContent();
             foreach (var temp in clientList)
             {
-                if (updatedList.FirstOrDefault(c=> c == temp.ToString()) == null)
+                if (updatedList.FirstOrDefault(c => c == temp.ToString()) == null)
                     Assert.Fail();
             }
         }
