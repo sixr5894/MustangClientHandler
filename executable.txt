@@ -1,0 +1,3 @@
+java -jar bfg.jar bfg --replace-text passwords.txt C:\Users\stude\source\repos\MustangClientHandler\.git
+java -jar bfg.jar  --replace-text passwords.txt D:\Тренировочная зона(помойка)\драйвера вебкамеры\MustangClientHandler.git
+$ git clone --mirror git://example.com/some-big-repo.git
